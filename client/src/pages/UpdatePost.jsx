@@ -4,8 +4,9 @@ import "react-quill/dist/quill.snow.css";
 import { useEffect, useState } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { useNavigate, useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import QuillToolbar, { modules, formats } from "../components/editorToolbar";
 
 export default function CreatePost() {
   const [file, setFile] = useState(null);
@@ -38,7 +39,6 @@ export default function CreatePost() {
       console.log(error.message);
     }
   }, [postId]);
-  
 
   const handleUpdloadImage = async () => {
     const acceptedFileTypes = [
@@ -64,10 +64,10 @@ export default function CreatePost() {
 
       try {
         setImageUploadProgress(0);
-        const res = await fetch('/api/imageUpload/uploadImage',{
-          method:'POST',
-          body:data,
-        })
+        const res = await fetch("/api/imageUpload/uploadImage", {
+          method: "POST",
+          body: data,
+        });
         const response = await res.json();
 
         if (response.success) {
@@ -87,13 +87,16 @@ export default function CreatePost() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`/api/post/updatepost/${formData._id}/${currentUser._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        `/api/post/updatepost/${formData._id}/${currentUser._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
       const data = await res.json();
       if (!res.ok) {
         setPublishError(data.message);
@@ -105,11 +108,11 @@ export default function CreatePost() {
         navigate(`/post/${data.slug}`);
       }
     } catch (error) {
-      setPublishError('Something went wrong');
+      setPublishError("Something went wrong");
     }
   };
   return (
-    <div className="p-3 max-w-3xl mx-auto min-h-screen">
+    <div className="p-3 max-w-6xl mx-auto min-h-screen">
       <h1 className="text-center text-3xl my-7 font-semibold">Edit post</h1>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-4 sm:flex-row justify-between">
@@ -125,10 +128,10 @@ export default function CreatePost() {
             value={formData.title}
           />
           <Select
-          onChange={(e) =>
-            setFormData({ ...formData, category: e.target.value })
-          }
-          value={formData.category}
+            onChange={(e) =>
+              setFormData({ ...formData, category: e.target.value })
+            }
+            value={formData.category}
           >
             <option value="uncategorized">Select a category</option>
             <option value="javascript">JavaScript</option>
@@ -170,21 +173,26 @@ export default function CreatePost() {
             className="w-full h-72 object-cover"
           />
         )}
-        <ReactQuill
-          theme="snow"
-          value={formData.content}
-          placeholder="Write something..."
-          className="h-72 mb-12"
-          required
+        <>
+          <QuillToolbar />
+          <ReactQuill
+            theme="snow"
+            value={formData.content}
+            placeholder="Write something..."
+            className="h-72 mb-12 post-content"
+            required
             onChange={(value) => {
               setFormData({ ...formData, content: value });
             }}
-        />
+            modules={modules}
+            formats={formats}
+          />
+        </>
         <Button type="submit" gradientDuoTone="purpleToPink">
           Update post
         </Button>
         {publishError && (
-          <Alert className='mt-5' color='failure'>
+          <Alert className="mt-5" color="failure">
             {publishError}
           </Alert>
         )}

@@ -9,7 +9,13 @@ export default {
     flowbite.content(),
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily:{
+        poppins: ["Poppins", "sans-serif"],
+        comicsans:["Comic Neue","cursive"],
+        couriernew: ["Courier Prime", "monospace"],
+      }
+    },
   },
   plugins: [flowbite.plugin(),require('tailwind-scrollbar'),],
 };

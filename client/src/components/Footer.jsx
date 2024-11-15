@@ -49,7 +49,7 @@ export default function FooterCom() {
                 >
                   Github
                 </Footer.Link>
-                <Footer.Link href='#'>Discord</Footer.Link>
+                <Footer.Link href='https://www.linkedin.com/in/shreya-kumari-b650b921a/' target='_blank'>Linkedin</Footer.Link>
               </Footer.LinkGroup>
             </div>
             <div>

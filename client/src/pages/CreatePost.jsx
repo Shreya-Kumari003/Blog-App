@@ -5,7 +5,7 @@ import { useState } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useNavigate } from "react-router-dom";
-import QuillToolbar, { modules, formats } from "../components/editorToolbar";
+import { QuillToolbar, modules, formats } from "../components/EditorToolbar";
 
 export default function CreatePost() {
   const [file, setFile] = useState(null);
@@ -144,7 +144,7 @@ export default function CreatePost() {
           />
         )}
         <>
-        <QuillToolbar/>
+          <QuillToolbar />
           <ReactQuill
             theme="snow"
             placeholder="Write something..."

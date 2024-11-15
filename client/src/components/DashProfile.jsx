@@ -1,14 +1,6 @@
 import { Alert, Button, Modal, ModalBody, TextInput } from "flowbite-react";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import axios from "axios";
-// import {
-//   getDownloadURL,
-//   getStorage,
-//   ref,
-//   uploadBytesResumable,
-// } from "firebase/storage";
-// import { app } from "../firebase";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import {
@@ -22,6 +14,7 @@ import {
 } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { FaPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 export default function DashProfile() {
@@ -80,23 +73,18 @@ export default function DashProfile() {
 
     try {
       setImageFileUploadProgress(0);
+      const res = await fetch("/api/imageUpload/uploadImage", {
+        method: "POST",
+        body: data,
+      });
+      const response = await res.json();
+      console.log(response.success);
 
-      const response = await axios.post(
-        "http://localhost:3000/api/imageUpload/uploadImage",
-        data,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-
-      if (response.data.success) {
+      if (response.success) {
         setImageFileUploadProgress(100);
-        setImageFileUrl(response.data.result.url);
-        setFormData({ ...formData, profilePicture: response.data.result.url });
-        const fileName =
-          new Date().getTime() + response.data.result.display_name;
+        setImageFileUrl(response.result.url);
+        setFormData({ ...formData, profilePicture: response.result.url });
+        const fileName = new Date().getTime() + response.result.display_name;
         setImageFileUploading(false);
       } else {
         throw new Error("Upload failed");
@@ -195,7 +183,7 @@ export default function DashProfile() {
           hidden
         />
         <div
-          className="relative w-32 h-32 self-center cursor-pointer shadow-md overflow-hidden rounded-full"
+          className="relative w-32 h-32 self-center cursor-pointer shadow-md overflow-hidden rounded-full group"
           onClick={() => filePickerRef.current.click()}
         >
           {imageFileUploadProgress !== null && (
@@ -228,7 +216,11 @@ export default function DashProfile() {
               "opacity-60"
             }`}
           />
+          <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 flex justify-center items-center">
+            <span className="text-white text-2xl font-bold"><FaPlus /></span>
+          </div>
         </div>
+
         {imageFileUploadError && (
           <Alert color="failure">{imageFileUploadError}</Alert>
         )}
@@ -262,15 +254,15 @@ export default function DashProfile() {
           {loading ? "Loading..." : "Update"}
         </Button>
         {currentUser.isAdmin && (
-        <Link to={"/create-post"}>
-          <Button
-            type="button"
-            gradientDuoTone="purpleToPink"
-            className="w-full"
-          >
-            Create a post
-          </Button>
-        </Link>
+          <Link to={"/create-post"}>
+            <Button
+              type="button"
+              gradientDuoTone="purpleToPink"
+              className="w-full"
+            >
+              Create a post
+            </Button>
+          </Link>
         )}
       </form>
       <div className="text-red-500 flex justify-between mt-5">

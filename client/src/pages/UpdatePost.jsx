@@ -6,7 +6,7 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import QuillToolbar, { modules, formats } from "../components/editorToolbar";
+import { QuillToolbar, modules, formats } from "../components/EditorToolbar";
 
 export default function CreatePost() {
   const [file, setFile] = useState(null);

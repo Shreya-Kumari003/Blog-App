@@ -73,30 +73,28 @@ export default function About() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
             {/* Card 1 */}
             <div
-              className="p-6 bg-gray-800 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:bg-indigo-700
-"
-            >
-              <h2 className="text-xl font-bold text-white">
+              className="p-6 bg-gray-800 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:bg-gradient-to-r hover:from-pink-500 hover:to-purple-500 group">
+              <h2 className="text-xl font-bold text-white group-hover:text-black">
                 Latest Technologies
               </h2>
-              <p className="mt-2 text-gray-300">
+              <p className="mt-2 text-gray-300 group-hover:text-black/75">
                 Discover emerging trends and innovations shaping the tech world.
               </p>
             </div>
 
             {/* Card 2 */}
-            <div className="p-6 bg-gray-800 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:bg-indigo-700">
-              <h2 className="text-xl font-bold text-white">Coding Tutorials</h2>
-              <p className="mt-2 text-gray-300">
+            <div className="p-6 bg-gray-800 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:bg-gradient-to-r hover:from-pink-500 hover:to-purple-500 group">
+              <h2 className="text-xl font-bold text-white group-hover:text-black">Coding Tutorials</h2>
+              <p className="mt-2 text-gray-300 group-hover:text-black/75 ">
                 Learn programming step-by-step with our beginner-friendly
                 guides.
               </p>
             </div>
 
             {/* Card 3 */}
-            <div className="p-6 bg-gray-800 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:bg-indigo-700">
-              <h2 className="text-xl font-bold text-white">AI and Beyond</h2>
-              <p className="mt-2 text-gray-300">
+            <div className="p-6 bg-gray-800 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:bg-gradient-to-r hover:from-pink-500 hover:to-purple-500 group">
+              <h2 className="text-xl font-bold text-white group-hover:text-black">AI and Beyond</h2>
+              <p className="mt-2 text-gray-300 group-hover:text-black/75">
                 Stay informed about artificial intelligence and its impact on
                 the future.
               </p>

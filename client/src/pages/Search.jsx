@@ -68,7 +68,7 @@ export default function Search() {
     }
   };
 
-  const handleSubmit = (e) => {    
+  const handleSubmit = (e) => {
     e.preventDefault();
     const urlParams = new URLSearchParams(location.search);
     urlParams.set("searchTerm", sidebarData.searchTerm || "");
@@ -84,7 +84,7 @@ export default function Search() {
       sort: "",
       category: "",
     });
-    
+
     navigate("/search");
   };
 
@@ -127,11 +127,7 @@ export default function Search() {
           </div>
           <div className="flex items-center gap-2">
             <label className="font-semibold">Sort:</label>
-            <Select
-              onChange={handleChange}
-              value={sidebarData.sort}
-              id="sort"
-            >
+            <Select onChange={handleChange} value={sidebarData.sort} id="sort">
               <option value="desc">Latest</option>
               <option value="asc">Oldest</option>
             </Select>
@@ -144,22 +140,28 @@ export default function Search() {
               id="category"
             >
               <option value="uncategorized">Uncategorized</option>
+              <option value="html">HTML</option>
+              <option value="css">CSS</option>
+              <option value="javascript">JavaScript</option>
               <option value="reactjs">React.js</option>
               <option value="nextjs">Next.js</option>
-              <option value="javascript">JavaScript</option>
+              <option value="tailwind">TailwindCSS</option>
+              <option value="angularjs">Angular.js</option>
+              <option value="ai">AI</option>
+              <option value="python">Python</option>
             </Select>
           </div>
           <Button type="submit" outline gradientDuoTone="purpleToPink">
             Apply Filters
           </Button>
           <Button
-          type="button"
-          onClick={handleClearFilters}
-          outline
-          gradientDuoTone="cyanToBlue"
-        >
-          Clear Filters
-        </Button>
+            type="button"
+            onClick={handleClearFilters}
+            outline
+            gradientDuoTone="cyanToBlue"
+          >
+            Clear Filters
+          </Button>
         </form>
       </div>
       <div className="w-full">

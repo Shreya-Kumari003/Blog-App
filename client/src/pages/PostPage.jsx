@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import CallToAction from "../components/CallToAction";
 import CommentSection from "../components/CommentSection";
 import PostCard from "../components/PostCard";
-import { FaRegCopy } from "react-icons/fa";
+
 
 export default function PostPage() {
   const { postSlug } = useParams();
@@ -54,10 +54,10 @@ export default function PostPage() {
 
   useEffect(() => {
     const postContentElement = document.querySelector(".post-content");
-
+  
     if (postContentElement) {
       const syntaxElements = postContentElement.querySelectorAll(".ql-syntax");
-
+  
       syntaxElements.forEach((syntaxElement) => {
         if (!syntaxElement.querySelector(".copy-btn")) {
           const button = document.createElement("button");
@@ -72,35 +72,46 @@ export default function PostPage() {
           button.style.cursor = "pointer";
           button.style.fontSize = "1.2rem";
           button.style.zIndex = "10";
-
+  
           const svgIcon = `
             <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M6 11C6 8.17157 6 6.75736 6.87868 5.87868C7.75736 5 9.17157 5 12 5H15C17.8284 5 19.2426 5 20.1213 5.87868C21 6.75736 21 8.17157 21 11V16C21 18.8284 21 20.2426 20.1213 21.1213C19.2426 22 17.8284 22 15 22H12C9.17157 22 7.75736 22 6.87868 21.1213C6 20.2426 6 18.8284 6 16V11Z" stroke="#dbc7c7" stroke-width="1.5"/>
               <path opacity="0.5" d="M6 19C4.34315 19 3 17.6569 3 16V10C3 6.22876 3 4.34315 4.17157 3.17157C5.34315 2 7.22876 2 11 2H15C16.6569 2 18 3.34315 18 5" stroke="#dbc7c7" stroke-width="1.5"/>
             </svg>
           `;
-
+  
           button.innerHTML = svgIcon;
-
+  
           if (!syntaxElement.parentElement.classList.contains("pre-wrapper")) {
             const preWrapper = document.createElement("div");
             preWrapper.className = "pre-wrapper";
             preWrapper.style.position = "relative";
-
+  
             syntaxElement.parentElement.insertBefore(preWrapper, syntaxElement);
             preWrapper.appendChild(syntaxElement);
           }
-
+  
           const preWrapper = syntaxElement.parentElement;
           preWrapper.appendChild(button);
-
+  
           button.addEventListener("click", () => {
             navigator.clipboard.writeText(syntaxElement.innerText);
+  
+            // Change the icon to a right tick
+            button.innerHTML = `
+              <svg width="40px" height="40px" viewBox="5 5 5 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 12.6L11.4 15L15 9" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            `;
+            setTimeout(() => {
+              button.innerHTML = svgIcon;
+            }, 2000);
           });
         }
       });
     }
   }, [post]);
+  
 
   useEffect(() => {
     const postContentElement = document.querySelector(".post-content");
